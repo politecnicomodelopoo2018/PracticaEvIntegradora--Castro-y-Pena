@@ -1,108 +1,174 @@
-from veterinario import Veterinario
-from mascota import  Mascota
-from pajarito import Pajaro
+from Clases import *
 
-Vete = Veterinario()
+listaMasc = []
 
-opcion=int(input("OPCION 1- Agregar Mascota, 2-Modificar Mascota, 3-Borrar Mascota, 4-Saludar Dueño, 5- Salir"))
+opcion=int(input("OPCION 1- Agregar Mascota, 2-Modificar Mascota, 3-Borrar Mascota, 4-Saludar Dueño, 5-Ver Mascotas, 6- Salir: "))
 
 
-while opcion != 5:
+while opcion != 6:
 
     if opcion == 1:
 
-        opcionMascota=int(input("Desea agregar Perro(1), Gato(2) o Pajaro(3)?"))
+        opcionMascota=int(input("Desea agregar Perro(1), Gato(2), Pajaro(3) o Pez(4)?"))
 
         if opcionMascota == 1:
 
-            nombre = input("Que nombre tiene el perro?")
-            duenio = input("Que nombre tiene el dueño?")
+            nom = input("Escriba el nombre del perro: ")
+            due = input("Escriba el nombre del dueño: ")
 
-            perro = Mascota(nombre, duenio, "guau")
 
-            Vete.agregarMascotasALista(perro)
+            verif = True
 
-        if opcionMascota == 2:
+            for item in listaMasc:
+                if item.nombre == nom:
+                    print("No se pudo agregar, nombre duplicado")
+                    verif = False
 
-            nombre = input("Que nombre tiene el gato?")
-            duenio = input("Que nombre tiene el dueño?")
+            if verif == True:
 
-            gato = Mascota(nombre, duenio, "miau")
+                Perrito = Perro(nom, due)
+                listaMasc.append(Perrito)
+                print("Se agrego satisfactoriamente")
 
-            Vete.agregarMascotasALista(gato)
+        elif opcionMascota == 2:
 
-        if opcionMascota == 3:
+            nom = input("Escriba el nombre del gato: ")
+            due = input("Escriba el nombre del dueño: ")
 
-            nombre = input("Que nombre tiene el pajaro?")
-            duenio = input("Que nombre tiene el dueño?")
+            verif = True
 
-            cantante = int(input("Es cantante? SI = 1 , NO = 0"))
+            for item in listaMasc:
+                if item.nombre == nom:
+                    print("No se pudo agregar, nombre duplicado")
+                    verif = False
 
-            if cantante == 1:
+            if verif == True:
+                Gatito = Gato(nom, due)
+                listaMasc.append(Gatito)
+                print("Se agrego satisfactoriamente")
 
-                saludo = input("Cual es su saludo?")
 
-                pajarito = Pajaro(nombre,duenio,saludo,cantante)
+        elif opcionMascota == 3:
 
-                Vete.agregarMascotasALista(pajarito)
 
-            elif cantante == 0:
+            nom = input("Escriba el nombre del pajaro: ")
+            due = input("Escriba el nombre del dueño: ")
+            cant = input("El pajaro es cantor?")
 
-                pajarito = Pajaro(nombre,duenio,"pio",cantante)
+            if cant == "si":
 
-                Vete.agregarMascotasALista(pajarito)
+                canto = input("Cual es su canto?: ")
+
+                Pajaro = Pajarito(nom,due,canto)
+
+            elif cant == "no":
+
+                Pajaro = Pajarito(nom,due)
+
+            verif = True
+
+            for item in listaMasc:
+                if item.nombre == nom:
+                    print("No se pudo agregar, nombre duplicado")
+                    verif = False
+
+            if verif == True:
+
+                listaMasc.append(Pajaro)
+                print("Se agrego satisfactoriamente")
+
+        elif opcionMascota == 4:
+
+            nom = input("Escriba el nombre del pez: ")
+            due = input("Escriba el nombre del dueño: ")
+
+            verif = True
+
+            for item in listaMasc:
+                if item.nombre == nom:
+                    print("No se pudo agregar, nombre duplicado")
+                    verif = False
+
+            if verif == True:
+                Pescadito = Pez(nom, due)
+                listaMasc.append(Pescadito)
+                print("Se agrego satisfactoriamente")
+
 
     elif opcion == 2:
 
-        for item in Vete.listaMascotas:
+        for item in listaMasc:
 
-            print(item.nombre)
+            print(item.nombre + "\n")
 
-        nombreModificar = input("Ingrese el nombre de la mascota que desea modificar")
+        nom = input("Escriba el nombre de la mascota que quiere modificar")
 
-        # for item in Vete.listaMascotas:
-        #
-        #     if item.nombre == nombreModificar:
+        for item in listaMasc:
+
+            if item.nombre == nom:
+
+                nomM = input("Escriba el nuevo nombre: ")
+                dueM = input("Escriba el nuevo dueño: ")
+
+                if item.__class__.__name__ == 'Pajarito':
+
+                    canM = input("Es cantor?: (si/no)")
 
 
+                    verif = True
 
+                    for item2 in listaMasc:
+                        if item2.nombre == nomM and item.nombre != nomM:
+                            print("No se pudo agregar, nombre duplicado")
 
+                            verif = False
 
-                # if item.saludo == "pio" or (item.saludo!="guau" and item.saludo!= "miau"):
-                #     nombreModificado = input("Nombre nuevo mascota: ")
-                #     duenioModificado = input("Nombre nuevo Dueño: ")
-                #     esCantante = int(input("Es cantante?"))
+                    if verif == True:
+                        item.nombre = nomM
+                        item.dueño = dueM
+                        if canM == "si":
 
-                        # if esCantante == 1:
-                        #
-                        #     saludoModificado = input("Nuevo saludo:  ")
-                        #
-                        # elif esCantante == 0:
-                        #
-                        #     saludoModificado = "pio"
+                            cantoM = input("Cual es su nuevo canto?")
+
+                            item.saludo = cantoM
+
+                        print("Se agrego satisfactoriamente")
+
+                else:
+
+                        verif = True
+
+                        for item2 in listaMasc:
+                            if item2.nombre == nomM:
+
+                                print("No se pudo agregar, nombre duplicado")
+
+                                verif = False
+
+                        if verif == True:
+
+                            item.nombre = nomM
+                            item.dueño = dueM
+
+                            print("Se agrego satisfactoriamente")
+
 
     elif opcion == 3:
+        break
 
-        for item in Vete.listaMascotas:
-            print(item.nombre)
-
-        nombreBorrar = input("Ingrese el nombre de la mascota que desea eliminar")
-
-        for item in Vete.listaMascotas:
-
-            if item.nombre == nombreBorrar:
-
-                Vete.listaMascotas.remove(item)
 
     elif opcion ==4:
 
-        nombre = input("Que nombre tiene el pajaro?")
-        duenio = input("Que nombre tiene el dueño?")
+        break
 
-        print(Vete.saludarDuenio(duenio,nombre))
+    elif opcion == 5:
 
-    opcion = int(input("OPCION 1- Agregar Mascota, 2-Modificar Mascota, 3-Borrar Mascota, 4-Saludar Dueño, 5- Salir"))
+        for item in listaMasc:
 
+            print(item.nombre +"   " + item.dueño +"   " + item.saludo + "\n")
+
+
+    opcion=int(input("OPCION 1- Agregar Mascota, 2-Modificar Mascota, 3-Borrar Mascota, 4-Saludar Dueño, 5-Ver Mascotas, 6- Salir: "))
 
 
 
